@@ -170,3 +170,26 @@ print(f"{'Model':<12} | {'Akurasi':<10} | {'Parameter':<12} | {'Waktu/Epoch (s)'
 print("-"*85)
 for k, v in rekap_hasil.items():
     print(f"{k:<12} | {v['Akurasi']:<10.4f} | {v['Param']:<12,} | {v['Waktu/Epoch']:<16.2f} | {v['Catatan']}")
+
+Data Set
+<img width="940" height="641" alt="image" src="https://github.com/user-attachments/assets/46c3caa0-93b5-4409-ab03-49e9ddceb784" />
+<img width="940" height="643" alt="image" src="https://github.com/user-attachments/assets/bae395b7-4874-4fbd-a699-13581dd567f3" />
+<img width="940" height="508" alt="image" src="https://github.com/user-attachments/assets/96f72fab-eae2-4299-a946-7af871922740" />
+
+Jawaban Ringkas untuk Pertanyaan Analisis & Rekomendasi Modul
+Kasus 1 (Foto Produk)
+	Perbandingan FCNN vs CNN: CNN lebih unggul meskipun parameternya sebanding. Hal ini disebabkan fitur weight sharing dan local receptive field pada Conv2D yang menjaga struktur spasial 2D gambar. 
+	Parameter Terbanyak: Lapisan Dense setelah Flatten menyumbang parameter terbanyak karena menghubungkan seluruh feature map secara fully-connected.
+	Kesalahan Prediksi: Kategori yang paling sering tertukar adalah kelompok pakaian atas (Shirt, T-shirt/top, Pullover, Coat) akibat kemiripan bentuk siluet visual. 
+Kasus 2 (Sentimen Ulasan)
+	Urutan Performansi: LSTM / GRU > SimpleRNN. SimpleRNN mengalami penurunan akurasi pada urutan panjang (200 token) akibat vanishing gradient. 
+	Keunggulan GRU: GRU menawarkan performa yang setara dengan LSTM namun dengan parameter lebih sedikit dan waktu komputasi yang lebih cepat karena hanya memiliki 2 gate (vs 3 gate pada LSTM).
+	Embedding vs One-Hot: Embedding memetakan kata ke ruang vektor kontinu berdimensi rendah yang menangkap hubungan semantik antar kata, berbeda dengan one-hot encoding yang bersifat sparse dan tidak memuat informasi kemiripan makna.
+Kasus 3 (Self-Attention & Transformer)
+	Pembagian √(d_model ): Menjaga nilai dot product tidak terlalu besar agar fungsi softmax tidak mengalami kejenuhan (saturation) yang dapat menyebabkan vanishing gradient. 
+	Peran Positional Embedding: Menyuplai informasi urutan kata. Tanpa positional embedding, mekanisme self-attention bersifat permutation-invariant (tidak peka terhadap urutan kata). 
+Kasus 4 (Rekomendasi Bisnis)
+	Pekerjaan (1) Klasifikasi Gambar: Direkomendasikan CNN (atau Transfer Learning dengan arsitektur ResNet/MobileNet jika data produk nyata bertambah kompleks). 
+	Pekerjaan (2) Analisis Sentimen:
+	Jika data kecil (3.000 ulasan): Gunakan GRU/LSTM atau manfaatkan Fine-tuning Transfer Learning (seperti BERT/IndoBERT). 
+	Jika data besar (3 juta ulasan): Direkomendasikan Transformer karena pemrosesannya bersifat paralel sehingga jauh lebih cepat dalam pelatihan skala besar. 
